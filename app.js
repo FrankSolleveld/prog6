@@ -1,16 +1,19 @@
 // Express is required
 const express = require('express');
-
 // Here we initiate Express
 const app = express();
-
 // Here we initiate morgan
 const morgan = require('morgan');
-
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+
+mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@wegservice-yxqmn.azure.mongodb.net/test?retryWrites=true', {
+    useMongoClient: true
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
