@@ -1,0 +1,27 @@
+{
+  "name": "webservice",
+  "version": "1.0.0",
+  "description": "A Node.js RESTful API project for Programmeren6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IAmMisterFrank/prog6.git"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api"
+  ],
+  "author": "Frank Solleveld",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IAmMisterFrank/prog6/issues"
+  },
+  "homepage": "https://github.com/IAmMisterFrank/prog6#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
