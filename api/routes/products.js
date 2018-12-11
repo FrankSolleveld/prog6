@@ -2,6 +2,8 @@
 const express = require('express');
 // We use the Router function provided by express. It is initialized right here
 const router = express.Router();
+const mongoose = require('mongoose');
+const Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
     res.status(200).json({
@@ -11,14 +13,25 @@ router.get('/', (req, res, next) => {
 
 // URI /products is already defined in app.js temporarily, hence we use '/' here 
 router.post('/', (req, res, next) => {
-    const product = {
+    console.log('iets zeggen');
+    Product.create({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
-    };
-    res.status(201).json({
-        message:'Handling POST requests to /products',
-        createdProduct: product
+    }).then(function(product){
+        product.save().then(result => {
+            console.log(result);
+        })
+        .catch(err => console.log(err));
+        res.status(201).json({
+            message:'Handling POST requests to /products',
+            createdProduct: product
+        });
+    }).catch(err =>{
+        console.log('blaaaa');
+        console.log(err);
     });
+    
 });
 
 // URI /products/productId -> check Postman

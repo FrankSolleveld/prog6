@@ -11,8 +11,8 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@wegservice-yxqmn.azure.mongodb.net/test?retryWrites=true', {
-    useMongoClient: true
+mongoose.connect('mongodb://localhost:27017/webservice', {
+    useNewUrlParser: true
 });
 
 app.use(morgan('dev'));
