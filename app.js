@@ -1,3 +1,5 @@
+console.log('Start of app.js...');
+
 // Express is required
 const express = require('express');
 // Here we initiate Express
@@ -54,3 +56,4 @@ app.use((error, req, res, next) => {
 });
 
 module.exports = app;
+console.log('End of app.js...');
