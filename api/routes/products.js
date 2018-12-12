@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
                         category: doc.category,
                         price: doc.price,
                         _id: doc._id,
-                        // Lecturer called this below 'link'
+                        // Lecturer called this below '_links'
                         request: {
                             type: 'GET',
                             url: 'http://localhost:80/products/' + doc._id
