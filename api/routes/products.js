@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
                         _id: doc._id,
                         // Lecturer called this below '_links'
                         _links: {
-                            self: { 'href': 'http://159.65.201.210/products' + doc._id },
+                            self: { 'href': 'http://159.65.201.210/products/' + doc._id },
                             collection: { 'href': 'http://159.65.201.210/products' }
                         }
                     }
@@ -64,7 +64,7 @@ router.post('/', (req, res, next) => {
                 price: result.price,
                 _id: result._id,
                 _links: {
-                    self: { 'href': 'http://159.65.201.210/products' + result._id },
+                    self: { 'href': 'http://159.65.201.210/products/' + result._id },
                     collection: { 'href': 'http://159.65.201.210/products' }
                 }
             })
@@ -93,7 +93,7 @@ router.get('/:productId', (req, res, next) => {
                     _id: doc._id,
                     // Lecturer called this below '_links'
                     _links: {
-                        self: { 'href': 'http://159.65.201.210/products' + doc._id },
+                        self: { 'href': 'http://159.65.201.210/products/' + doc._id },
                         collection: { 'href': 'http://159.65.201.210/products' }
                     }
                 });
@@ -123,7 +123,7 @@ router.patch('/:productId', (req, res, next) => {
             res.status(200).json({
                 message: 'Product updated',
                 _links: {
-                    self: { 'href': 'http://159.65.201.210/products' + id },
+                    self: { 'href': 'http://159.65.201.210/products/' + id },
                     collection: { 'href': 'http://159.65.201.210/products' }
                 }
             });
