@@ -35,11 +35,11 @@ app.use((req, res, next) => {
         res.header('Allow', 'POST, GET, OPTIONS');
         return res.status(200).json({});
     };
-    if (req.header('Accept') == 'application/json'){
-        return res.status(415).json({
-            message: 'Unsupported header.'
-        });
-    };
+    // if (req.header('Accept') == 'application/json'){
+    //     return res.status(415).json({
+    //         message: 'Unsupported header.'
+    //     });
+    // };
     next();
 });
 
