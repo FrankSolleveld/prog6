@@ -12,19 +12,23 @@ router.get('/', (req, res, next) => {
         .then(docs => {
             const response = {
                 count: docs.length,
-                products: docs.map(doc => {
+                items: docs.map(doc => {
                     return {
                         name: doc.name,
                         category: doc.category,
                         price: doc.price,
                         _id: doc._id,
                         // Lecturer called this below '_links'
-                        request: {
-                            type: 'GET',
-                            url: '/products/' + doc._id
+                        _links: {
+                            self: { 'href': '/products/' + doc._id },
+                            collection: { 'href': '/products' }
                         }
                     }
-                })
+                }),
+                _links: {
+                    self: { 'href': '/products/' }
+                },
+                pagination : 'does not wurk'
             };
             if (docs.length >= 0) {
                 res.status(200).json(response);
@@ -49,24 +53,21 @@ router.post('/', (req, res, next) => {
         name: req.body.name,
         price: req.body.price,
         category: req.body.category
-    }); 
+    });
     product
         .save()
         .then(result => {
             console.log(result);
             res.status(201).json({
-                message: 'Created product successfully.',
-                createdProduct: {
-                    name: result.name,
-                    category: result.category,
-                    price: result.price,
-                    _id: result._id,
-                    request: {
-                        type: 'GET',
-                        url: '/products/' + result._id
-                    }
+                name: result.name,
+                category: result.category,
+                price: result.price,
+                _id: result._id,
+                _links: {
+                    self: { 'href': '/products/' + result._id },
+                    collection: { 'href': '/products' }
                 }
-            });
+            })
         }).catch(err => {
             console.log(err);
             res.status(500).json({
@@ -86,10 +87,14 @@ router.get('/:productId', (req, res, next) => {
             console.log("From db: " + doc);
             if (doc) {
                 res.status(200).json({
-                    product: doc,
-                    request:{
-                        type:'GET',
-                        url: '/products'
+                name: doc.name,
+                    category: doc.category,
+                    price: doc.price,
+                    _id: doc._id,
+                    // Lecturer called this below '_links'
+                    _links: {
+                        self: { 'href': '/products/' + doc._id },
+                        collection: { 'href': '/products' }
                     }
                 });
             } else {
@@ -117,9 +122,9 @@ router.patch('/:productId', (req, res, next) => {
             console.log(result);
             res.status(200).json({
                 message: 'Product updated',
-                request: {
-                    type: 'GET',
-                    url:'/products/' + id
+                _links: {
+                    self: { 'href': '/products/' + id },
+                    collection: { 'href': '/products' }
                 }
             });
         })
@@ -143,15 +148,8 @@ router.delete('/:productId', (req, res, next) => {
     Product.remove({ _id: id })
         .exec()
         .then(result => {
-            res.status(200).json({
+            res.status(204).json({
                 message: 'Product deleted',
-                request:{
-                    type:'POST',
-                    url:'http://localhost:80/products',
-                    body:{
-                        name:'String', category:'String', price:'String'
-                    }
-                }
             });
         })
         .catch(err => {
