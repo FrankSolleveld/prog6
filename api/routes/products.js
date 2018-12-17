@@ -50,6 +50,11 @@ router.get('/', (req, res, next) => {
 
 // URI /products is already defined in app.js temporarily, hence we use '/' here 
 router.post('/', (req, res, next) => {
+    if (req.body.name == null || req.body.category == null || req.body.price == null) {
+        return res.status(400).json({
+            Error: 'All fields are supposed to be filled'
+        });
+    }
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
