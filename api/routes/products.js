@@ -143,13 +143,41 @@ How to PATCH:
 ]
 */
 
+router.put('/:productId',function(req, res){
+    const id = req.params.productId;
+    // This will have the data that needs to be patched. In the for loop the data is being retrieved from the body and put in the empty model updateOps.
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Product.update({ _id: id }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                message: 'Product updated',
+                _links: {
+                    self: { 'href': 'http://159.65.201.210/products/' + id },
+                    collection: { 'href': 'http://159.65.201.210/products' }
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+
+});
+
 router.delete('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(204).json({
-                message: 'Product deleted',
+                message: 'Product deleted'
             });
         })
         .catch(err => {
