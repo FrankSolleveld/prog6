@@ -111,40 +111,6 @@ router.get('/:productId', (req, res, next) => {
         });
 });
 
-router.patch('/:productId', (req, res, next) => {
-    const id = req.params.productId;
-    // This will have the data that needs to be patched. In the for loop the data is being retrieved from the body and put in the empty model updateOps.
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    Product.update({ _id: id }, { $set: updateOps })
-        .exec()
-        .then(result => {
-            console.log(result);
-            res.status(200).json({
-                message: 'Product updated',
-                _links: {
-                    self: { href: ipAddress + id },
-                    collection: { href: ipAddress }
-                }
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
-});
-
-/*
-How to PATCH:
-[
-	{"propName":"name", "value":"Harry Potter 6"}	
-]
-*/
-
 router.put('/:productId', function (req, res) {
     const id = req.params.productId;
 

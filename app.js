@@ -30,16 +30,15 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Headers', 
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     );
-    if (req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
-        res.header('Allow', 'POST, GET, OPTIONS');
-        return res.status(200).json({});
-    };
-    if (req.header('Accept') != 'application/json'){
-        return res.status(415).json({
-            message: 'Unsupported header.'
-        });
-    };
+    if (req.url == '/products' || req.url == '/products/') {
+        res.header('Allow', 'GET, POST, OPTIONS');
+    } else {
+        res.header('Allow', 'GET,PUT,DELETE,OPTIONS');
+    }
+    if (req.method == 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'POST, HEAD, GET, OPTIONS');
+        res.status(200).json();
+    }
     next();
 });
 
