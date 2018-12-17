@@ -26,7 +26,7 @@ router.get('/', (req, res, next) => {
                     }
                 }),
                 _links: {
-                    self: { 'href': '/products/' }
+                    self: { 'href': 'http://159.65.201.210/products/' }
                 },
                 pagination : 'does not wurk'
             };
@@ -109,7 +109,7 @@ router.get('/:productId', (req, res, next) => {
         });
 });
 
-router.put('/:productId', (req, res, next) => {
+router.patch('/:productId', (req, res, next) => {
     const id = req.params.productId;
     // This will have the data that needs to be patched. In the for loop the data is being retrieved from the body and put in the empty model updateOps.
     const updateOps = {};
