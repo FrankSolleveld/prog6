@@ -28,7 +28,8 @@ router.get('/', (req, res, next) => {
                     }
                 }),
                 _links: {
-                    self: { href: ipAddress }
+                    self: { href: ipAddress },
+                    collection: { ipAddress }
                 },
                 pagination: 'does not wurk'
             };
