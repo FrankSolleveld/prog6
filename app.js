@@ -39,6 +39,11 @@ app.use((req, res, next) => {
         res.header('Access-Control-Allow-Methods', 'POST, HEAD, GET, OPTIONS');
         res.status(200).json();
     }
+    if (req.header('Accept') != 'application/json'){
+        return res.status(415).json({
+            message: 'Unsupported header.'
+        });
+    };
     next();
 });
 
