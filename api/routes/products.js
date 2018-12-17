@@ -5,6 +5,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Product = require('../models/product');
 
+const ipAddress = 'http://159.65.201.210/products/'
+
 router.get('/', (req, res, next) => {
     Product.find()
         .select('name price category _id')
@@ -20,13 +22,13 @@ router.get('/', (req, res, next) => {
                         _id: doc._id,
                         // Lecturer called this below '_links'
                         _links: {
-                            self: { 'href': 'http://159.65.201.210/products/' + doc._id },
-                            collection: { 'href': 'http://159.65.201.210/products' }
+                            self: { href: ipAddress + doc._id },
+                            collection: { href: ipAddress }
                         }
                     }
                 }),
                 _links: {
-                    self: { 'href': 'http://159.65.201.210/products/' }
+                    self: { href: ipAddress }
                 },
                 pagination: 'does not wurk'
             };
@@ -64,8 +66,8 @@ router.post('/', (req, res, next) => {
                 price: result.price,
                 _id: result._id,
                 _links: {
-                    self: { 'href': 'http://159.65.201.210/products/' + result._id },
-                    collection: { 'href': 'http://159.65.201.210/products' }
+                    self: { href: ipAddress + result._id },
+                    collection: { href: ipAddress }
                 }
             })
         }).catch(err => {
@@ -93,8 +95,8 @@ router.get('/:productId', (req, res, next) => {
                     _id: doc._id,
                     // Lecturer called this below '_links'
                     _links: {
-                        self: { 'href': 'http://159.65.201.210/products/' + doc._id },
-                        collection: { 'href': 'http://159.65.201.210/products' }
+                        self: { href: ipAddress + doc._id },
+                        collection: { href: ipAddress }
                     }
                 });
             } else {
@@ -123,8 +125,8 @@ router.patch('/:productId', (req, res, next) => {
             res.status(200).json({
                 message: 'Product updated',
                 _links: {
-                    self: { 'href': 'http://159.65.201.210/products/' + id },
-                    collection: { 'href': 'http://159.65.201.210/products' }
+                    self: { href: ipAddress + id },
+                    collection: { href: ipAddress }
                 }
             });
         })
@@ -162,8 +164,8 @@ router.put('/:productId', function (req, res) {
                 _id: id,
                 message: 'Product updated',
                 _links: {
-                    self: { 'href': 'http://159.65.201.210/products/' + id },
-                    collection: { 'href': 'http://159.65.201.210/products' }
+                    self: { href: ipAddress + id },
+                    collection: { href: ipAddress }
                 }
             });
         })
