@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
                 _links: {
                     self: { 'href': 'http://159.65.201.210/products/' }
                 },
-                pagination : 'does not wurk'
+                pagination: 'does not wurk'
             };
             if (docs.length >= 0) {
                 res.status(200).json(response);
@@ -87,7 +87,7 @@ router.get('/:productId', (req, res, next) => {
             console.log("From db: " + doc);
             if (doc) {
                 res.status(200).json({
-                name: doc.name,
+                    name: doc.name,
                     category: doc.category,
                     price: doc.price,
                     _id: doc._id,
@@ -143,18 +143,23 @@ How to PATCH:
 ]
 */
 
-router.put('/:productId',function(req, res){
+router.put('/:productId', function (req, res) {
     const id = req.params.productId;
-    // This will have the data that needs to be patched. In the for loop the data is being retrieved from the body and put in the empty model updateOps.
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    Product.update({ _id: id }, { $set: updateOps })
+
+    Product.update({ _id: id }, {
+        name: req.body.name,
+        category: req.body.category,
+        price: req.body.price,
+        _id: id
+    }, { runValidators: true })
         .exec()
         .then(result => {
             console.log(result);
             res.status(200).json({
+                name: req.body.name,
+                category: req.body.category,
+                price: req.body.price,
+                _id: id,
                 message: 'Product updated',
                 _links: {
                     self: { 'href': 'http://159.65.201.210/products/' + id },
@@ -164,7 +169,7 @@ router.put('/:productId',function(req, res){
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({
+            res.status(400).json({
                 error: err
             });
         });
