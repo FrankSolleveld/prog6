@@ -5,7 +5,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Product = require('../models/product');
 
-const ipAddress = 'http://159.65.201.210'
+const ipAddress = 'https://kefcorp.xyz'
 
 router.get('/', (req, res, next) => {
     Product.find()
