@@ -140,7 +140,7 @@ router.put('/:productId', function (req, res) {
                 _id: id,
                 message: 'Product updated',
                 _links: {
-                    self: { 'href': ipAddress + '/products/' + doc._id },
+                    self: { 'href': ipAddress + '/products/' + id },
                     collection: { 'href': ipAddress + '/products/'}
                 }
             });
