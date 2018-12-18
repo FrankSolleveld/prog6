@@ -5,11 +5,11 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Product = require('../models/product');
 
-const ipAddress = 'http://159.65.201.210/products/'
+const ipAddress = 'http://159.65.201.210'
 
 router.get('/', (req, res, next) => {
     Product.find()
-        .select('name price category _id')
+        .select('_id name price category')
         .exec()
         .then(docs => {
             const response = {
@@ -21,13 +21,13 @@ router.get('/', (req, res, next) => {
                         price: doc.price,
                         _id: doc._id,
                         _links: {
-                            self: { href: ipAddress + doc._id },
-                            collection: { href: ipAddress }
+                            self: { href: ipAddress + '/products/' + doc._id },
+                            collection: { href: ipAddress + '/products' }
                         }
                     }
                 }),
                 _links: {
-                    self: { href: ipAddress }
+                    self: { href: ipAddress + '/products' }
                 },
                 pagination: 'does not wurk'
             };
