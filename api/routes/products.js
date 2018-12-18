@@ -13,21 +13,27 @@ router.get('/', (req, res, next) => {
         .exec()
         .then(docs => {
             const response = {
-                count: docs.length,
+
                 items: docs.map(doc => {
                     return {
+                        _id: doc._id,
                         name: doc.name,
                         category: doc.category,
                         price: doc.price,
-                        _id: doc._id,
                         _links: {
-                            self: { href: ipAddress + '/products/' + doc._id },
-                            collection: { href: ipAddress + '/products' }
+                            self: { 
+                                href: ipAddress + '/products/' + doc._id 
+                            },
+                            collection: { 
+                                href: ipAddress + '/products' 
+                            }
                         }
                     }
                 }),
                 _links: {
-                    self: { href: ipAddress + '/products' }
+                    self: { 
+                        href: ipAddress + '/products/' 
+                    }
                 },
                 pagination: 'does not wurk'
             };
