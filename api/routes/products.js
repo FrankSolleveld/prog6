@@ -76,8 +76,8 @@ router.post('/', (req, res, next) => {
                 price: result.price,
                 _id: result._id,
                 _links: {
-                    self: { 'href': ipAddress + result._id },
-                    collection: { 'href': ipAddress }
+                    self: { 'href': ipAddress + '/products/' + result._id  },
+                    collection: { 'href': ipAddress + '/products/' }
                 }
             })
         }).catch(err => {
@@ -105,8 +105,8 @@ router.get('/:productId', (req, res, next) => {
                     _id: doc._id,
                     // Lecturer called this below '_links'
                     _links: {
-                        self: { 'href': ipAddress + doc._id },
-                        collection: { 'href': ipAddress }
+                        self: { 'href': ipAddress + '/products/' + doc._id },
+                        collection: { 'href': ipAddress + '/products/' }
                     }
                 });
             } else {
@@ -140,8 +140,8 @@ router.put('/:productId', function (req, res) {
                 _id: id,
                 message: 'Product updated',
                 _links: {
-                    self: { 'href': ipAddress + id },
-                    collection: { 'href': ipAddress }
+                    self: { 'href': ipAddress + '/products/' + doc._id },
+                    collection: { 'href': ipAddress + '/products/'}
                 }
             });
         })
