@@ -20,7 +20,6 @@ router.get('/', (req, res, next) => {
                         category: doc.category,
                         price: doc.price,
                         _id: doc._id,
-                        // Lecturer called this below '_links'
                         _links: {
                             self: { href: ipAddress + doc._id },
                             collection: { href: ipAddress }
@@ -28,8 +27,7 @@ router.get('/', (req, res, next) => {
                     }
                 }),
                 _links: {
-                    self: { href: ipAddress },
-                    collection: { ipAddress }
+                    self: { href: ipAddress }
                 },
                 pagination: 'does not wurk'
             };
